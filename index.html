@@ -163,11 +163,40 @@
                 <option value="tv">体力なし（アニメやドラマを1話だけ…）</option>
             </select>
             <select id="mood-genre">
-                <option value="35">とにかく笑いたい（コメディ）</option>
+                <option value="">ジャンルを選択...</option>
+                <option value="35">笑いたい（コメディ）</option>
                 <option value="18">泣きたい・感動したい（ドラマ）</option>
-                <option value="28">ハラハラしたい（アクション・スリラー）</option>
+                <option value="28">ハラハラしたい（アクション）</option>
                 <option value="16">何も考えずに見たい（アニメ）</option>
                 <option value="27">背筋を凍らせたい（ホラー）</option>
+                <option value="878">頭を使いたい（SF）</option>
+                <option value="14">ファンタジーの世界に浸りたい</option>
+                <option value="80">犯罪・陰謀のストーリーが好き</option>
+                <option value="53">サスペンス・スリラーでドキドキ</option>
+                <option value="10749">恋愛ものが見たい（ロマンス）</option>
+                <option value="9648">謎解きが好き（ミステリー）</option>
+                <option value="12">冒険ものが好き（アドベンチャー）</option>
+                <option value="36">歴史ものが見たい</option>
+                <option value="10751">家族で見られるもの（ファミリー）</option>
+                <option value="10402">音楽・歌が好き（ミュージカル）</option>
+                <option value="99">ドキュメンタリーで学びたい</option>
+                <option value="10752">戦争・冒険のダイナミックな作品</option>
+            </select>
+            <select id="mood-vibe">
+                <option value="">気分タイプを選択...</option>
+                <option value="romantic">ロマンチック気分 💕</option>
+                <option value="intense">興奮・サスペンス気分 ⚡</option>
+                <option value="thoughtful">深く考えさせられたい 🤔</option>
+                <option value="relaxing">ゆったり・のんびり 😌</option>
+                <option value="adventurous">冒険心をくすぐられたい 🗺️</option>
+                <option value="dark">ダークな世界観に浸りたい 🌙</option>
+            </select>
+            <select id="mood-filter">
+                <option value="">フィルタを選択...</option>
+                <option value="popularity">人気作品を見たい（人気順）</option>
+                <option value="vote_average">評価が高い作品のみ（高評価順）</option>
+                <option value="release_date">最新作を見たい（新作順）</option>
+                <option value="random">とにかくおまかせ（ランダム）</option>
             </select>
         </div>
 
@@ -209,32 +238,72 @@
             }
             const providerIds = Array.from(checkboxes).map(cb => cb.value).join('|');
 
-            // 気分（ジャンルと形式）を取得
+            // 気分を取得
             const type = document.getElementById('mood-energy').value; // movie または tv
             const genreId = document.getElementById('mood-genre').value;
+            const vibe = document.getElementById('mood-vibe').value;
+            const filter = document.getElementById('mood-filter').value;
+
+            // バリデーション
+            if (!genreId) {
+                alert('ジャンルを選択してください！');
+                return;
+            }
+            if (!vibe) {
+                alert('気分タイプを選択してください！');
+                return;
+            }
+            if (!filter) {
+                alert('フィルタを選択してください！');
+                return;
+            }
 
             btn.style.display = 'none';
             resultDiv.style.display = 'none';
             loading.style.display = 'block';
 
             try {
+                // フィルタに基づいてソート順と最小評価を決定
+                let sortBy = 'popularity.desc';
+                let voteAverageGte = 0;
+
+                if (filter === 'vote_average') {
+                    sortBy = 'vote_average.desc';
+                    voteAverageGte = 7; // 7以上の高評価のみ
+                } else if (filter === 'release_date') {
+                    sortBy = 'release_date.desc';
+                } else if (filter === 'random') {
+                    // ランダムはJavaScript側で対応するため、ここでは人気順
+                    sortBy = 'popularity.desc';
+                }
+
                 // TMDb APIへリクエスト（1ページ目の結果を取得）
-                const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${TMDB_API_KEY}&language=ja-JP&watch_region=JP&with_watch_providers=${providerIds}&with_genres=${genreId}&sort_by=popularity.desc`;
+                let url = `https://api.themoviedb.org/3/discover/${type}?api_key=${TMDB_API_KEY}&language=ja-JP&watch_region=JP&with_watch_providers=${providerIds}&with_genres=${genreId}&sort_by=${sortBy}`;
+
+                if (voteAverageGte > 0) {
+                    url += `&vote_average.gte=${voteAverageGte}`;
+                }
 
                 const response = await fetch(url);
                 const data = await response.json();
 
                 if (data.results && data.results.length > 0) {
-                    // 結果からランダムに1つ選ぶ
-                    const randomIndex = Math.floor(Math.random() * Math.min(data.results.length, 20)); // 上位20件からランダム
+                    // ランダムなページを取得してさらに多様性を出す
+                    let randomIndex;
+                    if (filter === 'random') {
+                        randomIndex = Math.floor(Math.random() * Math.min(data.results.length, 50));
+                    } else {
+                        randomIndex = Math.floor(Math.random() * Math.min(data.results.length, 20));
+                    }
                     const item = data.results[randomIndex];
 
                     // 画面に表示するデータをセット
                     document.getElementById('res-title').textContent = item.title || item.name;
 
                     const releaseDate = item.release_date || item.first_air_date || '不明';
+                    const rating = item.vote_average ? `⭐ ${item.vote_average.toFixed(1)}` : '未評価';
                     const typeText = type === 'movie' ? '🎬 映画' : '📺 TV/アニメ';
-                    document.getElementById('res-info').textContent = `${typeText} | 公開: ${releaseDate.substring(0, 4)}`;
+                    document.getElementById('res-info').textContent = `${typeText} | 公開: ${releaseDate.substring(0, 4)} | ${rating}`;
 
                     document.getElementById('res-overview').textContent = item.overview ? item.overview : '（あらすじ情報がありません。とりあえず見てみましょう！）';
 

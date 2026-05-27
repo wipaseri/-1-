@@ -1,0 +1,14 @@
+{
+  "version": "0.2",
+  "language": "en,ja",
+  "words": [
+    "TMDB",
+    "TMDb",
+    "Gacha",
+    "UNEXT",
+    "dアニメ"
+  ],
+  "ignorePaths": [
+    ".git"
+  ]
+}
