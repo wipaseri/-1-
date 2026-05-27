@@ -26,15 +26,15 @@
 
 ## ✨ 機能
 
-| 機能 | 説明 |
-|------|------|
-| 複数サブスク対応 | Amazon Prime / Netflix / U-NEXT / Hulu / Disney+ / dアニメストア |
-| 体力別フィルタ | 「映画2時間いける」か「ドラマ1話だけ」かで作品タイプを切り替え |
-| 豊富なジャンル | **18種類のジャンル**から選択（コメディ・ドラマ・アクション・SF・ホラーなど） |
-| 気分タイプ選択 | ロマンチック / 興奮・サスペンス / 思考的 / リラックス / 冒険 / ダーク |
-| フィルタオプション | 人気順 / 高評価のみ / 最新作 / ランダム |
-| ランダム選出 | 条件に合った作品からランダムに1つをピック |
-| 充実した情報表示 | ポスター・タイトル・公開年・評価・あらすじ表示 |
+| 機能               | 説明                                                                         |
+| ------------------ | ---------------------------------------------------------------------------- |
+| 複数サブスク対応   | Amazon Prime / Netflix / U-NEXT / Hulu / Disney+ / dアニメストア             |
+| 体力別フィルタ     | 「映画2時間いける」か「ドラマ1話だけ」かで作品タイプを切り替え               |
+| 豊富なジャンル     | **18種類のジャンル**から選択（コメディ・ドラマ・アクション・SF・ホラーなど） |
+| 気分タイプ選択     | ロマンチック / 興奮・サスペンス / 思考的 / リラックス / 冒険 / ダーク        |
+| フィルタオプション | 人気順 / 高評価のみ / 最新作 / ランダム                                      |
+| ランダム選出       | 条件に合った作品からランダムに1つをピック                                    |
+| 充実した情報表示   | ポスター・タイトル・公開年・評価・あらすじ表示                               |
 
 ## 🚀 クイックスタート
 
@@ -57,10 +57,10 @@ cd tonight-watch
 
 ```javascript
 // 変更前
-const TMDB_API_KEY = 'YOUR_TMDB_API_KEY_HERE';
+const TMDB_API_KEY = "YOUR_TMDB_API_KEY_HERE";
 
 // 変更後（取得したキーに置き換え）
-const TMDB_API_KEY = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx';
+const TMDB_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 ```
 
 ### 4. ブラウザで開く
@@ -73,11 +73,23 @@ start index.html  # Windows
 
 サーバー不要 — `index.html` をブラウザで直接開くだけで動作します。
 
-## 🎮 使い方
+## � オンラインで使う
+
+本アプリは **Cloudflare Pages** でホストされています。以下のURLからアクセスできます：
+
+**📍 本番環境**: [https://tonight-watch.pages.dev](https://tonight-watch.pages.dev)
+
+### 特徴
+
+- 🚀 **高速配信** — CDN経由で世界規模での高速アクセス
+- 🔒 **SSL暗号化** — 自動でセキュア接続
+- 📱 **常に最新** — GitHubへのプッシュで自動デプロイ
+- 💰 **無料** — Cloudflare Pages の無料プラン使用
+
+## �🎮 使い方
 
 1. **登録しているサブスクを選択**（複数選択可能）
    - Amazon Prime、Netflix、U-NEXTなど
-   
 2. **体力レベルを選択**
    - 「体力あり」→ 映画（2時間フル視聴）
    - 「体力なし」→ TV・アニメ（1話だけ）
@@ -122,14 +134,14 @@ GET https://api.themoviedb.org/3/discover/{movie|tv}
 
 ### プロバイダーID対応表
 
-| サービス | TMDb Provider ID |
-|----------|-----------------|
-| Amazon Prime | 119 |
-| Netflix | 8 |
-| U-NEXT | 84 |
-| Hulu | 356 |
-| Disney+ | 337 |
-| dアニメストア | 85 |
+| サービス      | TMDb Provider ID |
+| ------------- | ---------------- |
+| Amazon Prime  | 119              |
+| Netflix       | 8                |
+| U-NEXT        | 84               |
+| Hulu          | 356              |
+| Disney+       | 337              |
+| dアニメストア | 85               |
 
 ## ❓ トラブルシューティング
 
@@ -148,7 +160,23 @@ GET https://api.themoviedb.org/3/discover/{movie|tv}
 
 - TMDbのデータベースに日本語訳がない作品の場合があります（仕様）
 
-## 📝 ライセンス・クレジット
+## � セキュリティに関する注意
+
+⚠️ **本番環境でのAPIキー管理**：
+
+このアプリはクライアント側にTMDb APIキーを埋め込んでいます。本番環境での運用では以下の対応を推奨しています：
+
+- **Cloudflare 環境変数の使用**（推奨）
+  - Cloudflare Pages のプロジェクト設定で環境変数を設定
+  - JavaScriptで環境変数経由でアクセス
+
+- **バックエンド API の実装**（より安全）
+  - Cloudflare Workers でTMDb APIをプロキシ化
+  - クライアント側は自社エンドポイント経由でアクセス
+
+詳細は [CLAUDE.md](CLAUDE.md) の「デプロイメント」セクションを参照してください。
+
+## �📝 ライセンス・クレジット
 
 - このプロジェクトは [TMDb API](https://www.themoviedb.org/documentation/api) を使用していますが、**TMDbによって承認または認定されていません**
 - TMDb利用規約: https://www.themoviedb.org/about/our-use-policy
