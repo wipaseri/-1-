@@ -41,37 +41,41 @@
 ### 1. リポジトリをクローン
 
 ```bash
-git clone https://github.com/<your-username>/tonight-watch.git
+git clone https://github.com/wipaseri/tonight-watch.git
 cd tonight-watch
 ```
 
-### 2. TMDb APIキーを取得
+### 2. 依存パッケージをインストール
+
+```bash
+npm install
+```
+
+### 3. TMDb APIキーを取得
 
 1. [TMDb 公式サイト](https://www.themoviedb.org/) でアカウントを作成
 2. [API設定ページ](https://www.themoviedb.org/settings/api) へ移動
 3. **v3 API key** を生成・コピー
 
-### 3. APIキーを設定
-
-`index.html` の以下の行を編集します。
-
-```javascript
-// 変更前
-const TMDB_API_KEY = "YOUR_TMDB_API_KEY_HERE";
-
-// 変更後（取得したキーに置き換え）
-const TMDB_API_KEY = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-```
-
-### 4. ブラウザで開く
+### 4. `.env.local` を作成してAPIキーを設定
 
 ```bash
-# ダブルクリック or ブラウザにドラッグ&ドロップ
-open index.html   # macOS
-start index.html  # Windows
+cp .env.example .env.local
 ```
 
-サーバー不要 — `index.html` をブラウザで直接開くだけで動作します。
+`.env.local` を開いて、取得したキーを設定します。
+
+```bash
+VITE_TMDB_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+
+### 5. 開発サーバーを起動
+
+```bash
+npm run dev
+```
+
+ブラウザで http://localhost:5173 が自動で開きます。
 
 ## � オンラインで使う
 
@@ -113,10 +117,12 @@ start index.html  # Windows
 
 - **HTML5** — マークアップ
 - **CSS3** — スタイリング（フレームワーク不使用）
-- **Vanilla JavaScript** — ロジック・API連携
+- **Vanilla JavaScript** — ロジック・API連携（ES Modules）
+- **Vite** — ビルドツール（`.env.local` によるAPIキー管理）
 - **TMDb API v3** — 映画・TVドラマ・アニメのデータベース
+- **Cloudflare Pages** — ホスティング
 
-依存パッケージなし。ビルドステップなし。ファイル1つで完結します。
+UIフレームワーク・ライブラリなし。`index.html` + `src/main.js` + `src/style.css` の3ファイル構成。
 
 ## 📡 API仕様
 

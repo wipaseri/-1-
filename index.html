@@ -5,138 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>サブスク迷子救済ガチャ</title>
-    <style>
-        body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-            margin: 0;
-        }
-
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            font-size: 24px;
-            color: #2c3e50;
-            margin-bottom: 20px;
-        }
-
-        .section {
-            text-align: left;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .section-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #34495e;
-        }
-
-        .checkbox-group label {
-            display: inline-block;
-            background: #ecf0f1;
-            padding: 8px 12px;
-            margin: 4px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: 0.2s;
-        }
-
-        .checkbox-group input[type="checkbox"] {
-            display: none;
-        }
-
-        .checkbox-group input[type="checkbox"]:checked+label {
-            background: #3498db;
-            color: white;
-        }
-
-        select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .btn {
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            width: 100%;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: 0.2s;
-        }
-
-        .btn:hover {
-            background-color: #c0392b;
-            transform: translateY(-2px);
-        }
-
-        #result {
-            margin-top: 30px;
-            display: none;
-        }
-
-        .poster {
-            width: 100%;
-            max-width: 250px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .movie-title {
-            font-size: 22px;
-            font-weight: bold;
-            margin: 15px 0 5px;
-        }
-
-        .movie-info {
-            font-size: 14px;
-            color: #7f8c8d;
-            margin-bottom: 15px;
-        }
-
-        .movie-overview {
-            font-size: 14px;
-            text-align: left;
-            line-height: 1.6;
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 8px;
-        }
-
-        .loading {
-            display: none;
-            margin-top: 20px;
-            font-weight: bold;
-            color: #3498db;
-        }
-
-        .tmdb-credit {
-            font-size: 10px;
-            color: #999;
-            margin-top: 40px;
-        }
-    </style>
+    <link rel="stylesheet" href="/src/style.css">
 </head>
 
 <body>
@@ -147,12 +16,18 @@
         <div class="section">
             <div class="section-title">1. 登録しているサブスクを選んでください（複数可）</div>
             <div class="checkbox-group" id="providers">
-                <input type="checkbox" id="p119" value="119" checked><label for="p119">Amazon Prime</label>
-                <input type="checkbox" id="p8" value="8" checked><label for="p8">Netflix</label>
-                <input type="checkbox" id="p84" value="84"><label for="p84">U-NEXT</label>
-                <input type="checkbox" id="p356" value="356"><label for="p356">Hulu</label>
-                <input type="checkbox" id="p337" value="337"><label for="p337">Disney+</label>
-                <input type="checkbox" id="p85" value="85"><label for="p85">dアニメストア</label>
+                <input type="checkbox" id="p119" value="119" checked>
+                <label for="p119" class="has-logo"><img src="/src/assets/logos/amazon.jpg" alt="Amazon Prime" title="Amazon Prime" class="provider-logo-icon"></label>
+                <input type="checkbox" id="p8" value="8" checked>
+                <label for="p8" class="has-logo"><img src="/src/assets/logos/netflix.jpg" alt="Netflix" title="Netflix" class="provider-logo-icon"></label>
+                <input type="checkbox" id="p84" value="84">
+                <label for="p84" class="has-logo"><img src="/src/assets/logos/unext.jpg" alt="U-NEXT" title="U-NEXT" class="provider-logo-icon"></label>
+                <input type="checkbox" id="p356" value="356">
+                <label for="p356" class="has-logo"><img src="/src/assets/logos/hulu.jpg" alt="Hulu" title="Hulu" class="provider-logo-icon"></label>
+                <input type="checkbox" id="p337" value="337">
+                <label for="p337" class="has-logo"><img src="/src/assets/logos/disney.jpg" alt="Disney+" title="Disney+" class="provider-logo-icon"></label>
+                <input type="checkbox" id="p85" value="85">
+                <label for="p85" class="has-logo"><img src="/src/assets/logos/danime.jpg" alt="dアニメストア" title="dアニメストア" class="provider-logo-icon"></label>
             </div>
         </div>
 
@@ -182,8 +57,9 @@
                 <option value="99">ドキュメンタリーで学びたい</option>
                 <option value="10752">戦争・冒険のダイナミックな作品</option>
             </select>
+            <!-- FIX #2: 任意選択に変更（選択しなくてもガチャを回せる） -->
             <select id="mood-vibe">
-                <option value="">気分タイプを選択...</option>
+                <option value="">気分タイプ（任意）</option>
                 <option value="romantic">ロマンチック気分 💕</option>
                 <option value="intense">興奮・サスペンス気分 ⚡</option>
                 <option value="thoughtful">深く考えさせられたい 🤔</option>
@@ -200,14 +76,21 @@
             </select>
         </div>
 
-        <button class="btn" onclick="rollGacha()">ガチャを回す！</button>
+        <button class="btn" id="gacha-btn">ガチャを回す！</button>
         <div id="loading" class="loading">作品を厳選中... 🤔</div>
 
         <div id="result">
-            <img id="res-poster" class="poster" src="" alt="ポスター画像">
+            <!-- FIX #7: src="" を削除してページロード時の余分なリクエストを防止 -->
+            <img id="res-poster" class="poster" alt="ポスター画像" style="display:none">
+            <!-- FIX #2: 気分タイプのラベルを表示するエリア -->
+            <div id="res-vibe" class="vibe-badge"></div>
             <div id="res-title" class="movie-title"></div>
             <div id="res-info" class="movie-info"></div>
             <div id="res-overview" class="movie-overview"></div>
+            <!-- 視聴リンク: 配信サービスへのリンクボタンを JS で描画 -->
+            <div id="res-watch-links"></div>
+            <!-- 予告映像: YouTube 埋め込みトグルを JS で描画 -->
+            <div id="res-trailer"></div>
         </div>
 
         <div class="tmdb-credit">
@@ -215,119 +98,7 @@
         </div>
     </div>
 
-    <script>
-        // ★★★ここに取得したTMDbのAPIキーを貼り付けてください★★★
-        const TMDB_API_KEY = 'd0ee623dc5a1cb87863b8947ba776cb6';
-
-        async function rollGacha() {
-            // APIキーが入力されているかチェック
-            if (TMDB_API_KEY === 'd0ee623dc5a1cb87863b8947ba776cb6') {
-                alert("コード内の「YOUR_TMDB_API_KEY_HERE」を、取得したAPIキーに書き換えてください！");
-                return;
-            }
-
-            const btn = document.querySelector('.btn');
-            const loading = document.getElementById('loading');
-            const resultDiv = document.getElementById('result');
-
-            // 選択されたサブスクを取得
-            const checkboxes = document.querySelectorAll('#providers input[type="checkbox"]:checked');
-            if (checkboxes.length === 0) {
-                alert('サブスクを1つ以上選んでください！');
-                return;
-            }
-            const providerIds = Array.from(checkboxes).map(cb => cb.value).join('|');
-
-            // 気分を取得
-            const type = document.getElementById('mood-energy').value; // movie または tv
-            const genreId = document.getElementById('mood-genre').value;
-            const vibe = document.getElementById('mood-vibe').value;
-            const filter = document.getElementById('mood-filter').value;
-
-            // バリデーション
-            if (!genreId) {
-                alert('ジャンルを選択してください！');
-                return;
-            }
-            if (!vibe) {
-                alert('気分タイプを選択してください！');
-                return;
-            }
-            if (!filter) {
-                alert('フィルタを選択してください！');
-                return;
-            }
-
-            btn.style.display = 'none';
-            resultDiv.style.display = 'none';
-            loading.style.display = 'block';
-
-            try {
-                // フィルタに基づいてソート順と最小評価を決定
-                let sortBy = 'popularity.desc';
-                let voteAverageGte = 0;
-
-                if (filter === 'vote_average') {
-                    sortBy = 'vote_average.desc';
-                    voteAverageGte = 7; // 7以上の高評価のみ
-                } else if (filter === 'release_date') {
-                    sortBy = 'release_date.desc';
-                } else if (filter === 'random') {
-                    // ランダムはJavaScript側で対応するため、ここでは人気順
-                    sortBy = 'popularity.desc';
-                }
-
-                // TMDb APIへリクエスト（1ページ目の結果を取得）
-                let url = `https://api.themoviedb.org/3/discover/${type}?api_key=${TMDB_API_KEY}&language=ja-JP&watch_region=JP&with_watch_providers=${providerIds}&with_genres=${genreId}&sort_by=${sortBy}`;
-
-                if (voteAverageGte > 0) {
-                    url += `&vote_average.gte=${voteAverageGte}`;
-                }
-
-                const response = await fetch(url);
-                const data = await response.json();
-
-                if (data.results && data.results.length > 0) {
-                    // ランダムなページを取得してさらに多様性を出す
-                    let randomIndex;
-                    if (filter === 'random') {
-                        randomIndex = Math.floor(Math.random() * Math.min(data.results.length, 50));
-                    } else {
-                        randomIndex = Math.floor(Math.random() * Math.min(data.results.length, 20));
-                    }
-                    const item = data.results[randomIndex];
-
-                    // 画面に表示するデータをセット
-                    document.getElementById('res-title').textContent = item.title || item.name;
-
-                    const releaseDate = item.release_date || item.first_air_date || '不明';
-                    const rating = item.vote_average ? `⭐ ${item.vote_average.toFixed(1)}` : '未評価';
-                    const typeText = type === 'movie' ? '🎬 映画' : '📺 TV/アニメ';
-                    document.getElementById('res-info').textContent = `${typeText} | 公開: ${releaseDate.substring(0, 4)} | ${rating}`;
-
-                    document.getElementById('res-overview').textContent = item.overview ? item.overview : '（あらすじ情報がありません。とりあえず見てみましょう！）';
-
-                    if (item.poster_path) {
-                        document.getElementById('res-poster').src = `https://image.tmdb.org/t/p/w500${item.poster_path}`;
-                        document.getElementById('res-poster').style.display = 'inline-block';
-                    } else {
-                        document.getElementById('res-poster').style.display = 'none';
-                    }
-
-                    resultDiv.style.display = 'block';
-                } else {
-                    alert('条件に合う作品が見つかりませんでした。別のサブスクや気分を選んでみてください！');
-                }
-            } catch (error) {
-                console.error(error);
-                alert('エラーが発生しました。時間を置いて再度お試しください。');
-            } finally {
-                loading.style.display = 'none';
-                btn.style.display = 'block';
-                btn.textContent = 'もう一度回す';
-            }
-        }
-    </script>
+    <script type="module" src="/src/main.js"></script>
 
 </body>
 

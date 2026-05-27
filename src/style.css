@@ -1,0 +1,280 @@
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+    margin: 0;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.section {
+    text-align: left;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #34495e;
+}
+
+.optional-label {
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+    margin-left: 6px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* テキストフォールバック（ロゴ未取得時） */
+.checkbox-group label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ecf0f1;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    border: 2px solid transparent;
+    transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+/* ロゴ取得後のアイコンスタイル */
+.checkbox-group label.has-logo {
+    width: 64px;
+    height: 64px;
+    padding: 4px;
+    border-radius: 16px;
+    background: #fff;
+    border: 2px solid #e0e0e0;
+}
+
+.checkbox-group input[type="checkbox"] {
+    display: none;
+}
+
+/* テキスト選択状態 */
+.checkbox-group input[type="checkbox"]:checked + label:not(.has-logo) {
+    background: #3498db;
+    color: white;
+}
+
+/* アイコン選択状態 — 青いボーダーとグローで選択を表現 */
+.checkbox-group input[type="checkbox"]:checked + label.has-logo {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.35);
+    background: #fff;
+}
+
+/* プロバイダーアイコン画像 */
+.provider-logo-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* FIX #9: transition: all の代わりに対象プロパティを明示 */
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+#result {
+    margin-top: 30px;
+    display: none;
+}
+
+.poster {
+    width: 100%;
+    max-width: 250px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* FIX #2: 気分タイプのラベル表示 */
+.vibe-badge {
+    display: none;
+    font-size: 13px;
+    color: #8e44ad;
+    margin: 10px 0 4px;
+    font-style: italic;
+}
+
+.movie-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 10px 0 5px;
+}
+
+.movie-info {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+}
+
+.movie-overview {
+    font-size: 14px;
+    text-align: left;
+    line-height: 1.6;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.loading {
+    display: none;
+    margin-top: 20px;
+    font-weight: bold;
+    color: #3498db;
+}
+
+/* ── 視聴リンクエリア ── */
+.watch-heading {
+    font-size: 13px;
+    font-weight: bold;
+    color: #555;
+    margin: 20px 0 8px;
+    text-align: left;
+}
+
+.provider-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f4f7f6;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    color: #2c3e50;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.provider-link:hover {
+    background: #e8f4fd;
+    border-color: #3498db;
+}
+
+.provider-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* ── 予告映像エリア（サムネイル + YouTube リンク方式） ── */
+
+/* クリッカブルなサムネイルラッパー */
+.trailer-thumb-link {
+    display: block;
+    position: relative;
+    margin-top: 16px;
+    border-radius: 10px;
+    overflow: hidden;
+    line-height: 0; /* img の下余白を消す */
+}
+
+.trailer-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    transition: filter 0.2s;
+}
+
+.trailer-thumb-link:hover .trailer-thumb {
+    filter: brightness(0.75);
+}
+
+/* 再生ボタンオーバーレイ */
+.trailer-play-icon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    transition: transform 0.2s;
+}
+
+.trailer-thumb-link:hover .trailer-play-icon {
+    transform: scale(1.15);
+}
+
+/* テキストリンク */
+.trailer-caption {
+    font-size: 13px;
+    color: #666;
+    margin-top: 6px;
+    text-align: center;
+}
+
+.trailer-caption a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.trailer-caption a:hover {
+    text-decoration: underline;
+}
+
+.tmdb-credit {
+    font-size: 10px;
+    color: #999;
+    margin-top: 40px;
+}

@@ -6,7 +6,10 @@
     "TMDb",
     "Gacha",
     "UNEXT",
-    "dアニメ"
+    "dアニメ",
+    "wipaseri",
+    "dotenv",
+    "gitignore"
   ],
   "ignorePaths": [
     ".git"

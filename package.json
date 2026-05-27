@@ -1,0 +1,13 @@
+{
+  "name": "tonight-watch",
+  "version": "1.0.0",
+  "description": "サブスク迷子救済ガチャ — TMDb API を使った気分別コンテンツ提案ツール",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.3.5"
+  }
+}
